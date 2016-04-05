@@ -51,11 +51,31 @@ class Guide
         when 'find'
             puts "Finding..."
         when 'add'
-            puts "Adding..."
+            add         # calls add method
         when 'quit'
             return :quit
         else 
             puts "I don't understand."
+        end
+    end
+    
+    def add             # method to add restaurants
+        puts "Add a restaurant".upcase
+        restaurant = Restaurant.new
+        
+        print "Restaurant name: "
+        restaurant.name = gets.chomp.strip
+        
+        print "Cuisine type: "
+        restaurant.cuisine = gets.chomp.strip
+        
+        print "Average Price: "
+        restaurant.price = gets.chomp.strip
+        
+        if restaurant.save
+            puts "Restaurant Added"
+        else
+            puts "Error: Restaurant not added"
         end
     end
     

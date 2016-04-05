@@ -1,0 +1,3 @@
+name	cuisine	price
+name	cuisine 2	price 2
+name 3	cuisine 3	price 3
