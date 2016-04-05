@@ -2,6 +2,11 @@ require "restaurant" # loads Restaurant class before Guide class
 
 class Guide
     
+    class Config
+        @@actions = ['list', 'find', 'add', 'quit'] # actions available for user
+        def self.actions; @@actions; end
+    end
+    
     def initialize(path=nil)
         Restaurant.filepath = path      # locate the restaurant text file at path
         if Restaurant.file_usable?      # if file exists and is usable
@@ -20,15 +25,26 @@ class Guide
         #action loop 
         result = nil
         until result == :quit # repeat until user quits app
-            # ask for user input, what do you want to do? choices: list, find, add, quit
-            user_response = gets.chomp
+            # get action from user input
+            action = get_action
             # perform the chosen action
-            result = do_action(user_response)
+            result = do_action(action)
         end
         conclusion      # goodbye message to user
     end
     
-    def do_action(action) # action method
+    def get_action      # method: get action from user input
+        action = nil
+        # Keep asking for user input until a valid action is entered
+        until Guide::Config.actions.include?(action)
+            puts "Actions: " + Guide::Config.actions.join(", ") if action
+            user_response = gets.chomp
+            action = user_response.downcase.strip # modify user input by downcasing and removing spaces
+        end
+        return action
+    end
+    
+    def do_action(action) # method: do action
         case action
         when 'list'
             puts "Listing..."
