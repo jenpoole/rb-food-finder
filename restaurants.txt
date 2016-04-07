@@ -3,3 +3,5 @@ name	cuisine 2	2
 name 3	cuisine 3	3
 test 5	test 5	5
 test 7	test 7	7
+foofoo	foooood	10
+high Roller	gold	10500
