@@ -1,3 +1,5 @@
-name	cuisine	price
-name	cuisine 2	price 2
-name 3	cuisine 3	price 3
+name	cuisine	1
+name	cuisine 2	2
+name 3	cuisine 3	3
+test 5	test 5	5
+test 7	test 7	7

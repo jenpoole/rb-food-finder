@@ -64,7 +64,7 @@ class Guide
         restaurants = Restaurant.saved_restaurants
         
         restaurants.each do |place|
-            puts place.name + "|" + place.cuisine + "|" + place.price
+            puts place.name + "|" + place.cuisine + "|" + place.formatted_price
         end
     end
     
@@ -89,5 +89,6 @@ class Guide
     def conclusion    #conclusion method
         puts "<<< Goodbye and Bon Appetit! >>>"
     end
-    
+
+  
 end

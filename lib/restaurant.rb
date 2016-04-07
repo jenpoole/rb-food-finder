@@ -1,4 +1,7 @@
+require 'support/number_helper'
+
 class Restaurant 
+    include NumberHelper
     
     ## CLASS METHODS ##
     
@@ -79,6 +82,10 @@ class Restaurant
             file.puts "#{[@name, @cuisine, @price].join("\t")}"
         end
         return true 
+    end
+    
+    def formatted_price
+        number_to_currency(@price)
     end
 
 end
