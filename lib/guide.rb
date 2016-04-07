@@ -27,9 +27,9 @@ class Guide
         result = nil
         until result == :quit # repeat until user quits app
             # get action from user input
-            action = get_action
+            action, args = get_action
             # perform the chosen action
-            result = do_action(action)
+            result = do_action(action, args)
         end
         conclusion      # goodbye message to user
     end
@@ -40,17 +40,19 @@ class Guide
         until Guide::Config.actions.include?(action)
             puts "Actions: " + Guide::Config.actions.join(", ") if action
             user_response = gets.chomp
-            action = user_response.downcase.strip # modify user input by downcasing and removing spaces
+            args = user_response.downcase.strip.split(' ') # modify user input by downcasing and removing spaces
+            action = args.shift
         end
-        return action
+        return action, args
     end
     
-    def do_action(action) # method: do action
+    def do_action(action, args=[]) # method: do action
         case action
         when 'list'
             list
         when 'find'
-            puts "Finding..."
+            keyword = args.shift
+            find(keyword)
         when 'add'
             add         # calls add method
         when 'quit'
@@ -64,6 +66,25 @@ class Guide
         output_action_header("Listing restaurants")
         restaurants = Restaurant.saved_restaurants
         output_restaurant_table(restaurants)
+    end
+    
+    def find(keyword="")
+        output_action_header("Find a restaurant")
+        
+        if keyword
+            #search
+            restaurants = Restaurant.saved_restaurants
+            found = restaurants.select do |rest|
+                rest.name.downcase.include?(keyword.downcase) ||
+                rest.cuisine.downcase.include?(keyword.downcase) #||
+                # rest.price_to_i <= keyword.to_i
+            end
+            output_restaurant_table(found)
+        else
+            puts "Find using a key phrase to search the restaurant list."
+            puts "Examples: 'find tamale', 'find Mexican'\n\n"
+        end
+        
     end
     
     
@@ -100,10 +121,10 @@ class Guide
       print " " + "Price".rjust(6) + "\n"
       puts "-" * 60
       
-      restaurants.each do |place|
-          line = " " << place.name.titleize.ljust(30)
-          line << " " + place.cuisine.titleize.ljust(20)
-          line << " " + place.formatted_price.rjust(6)
+      restaurants.each do |rest|
+          line = " " << rest.name.titleize.ljust(30)
+          line << " " + rest.cuisine.titleize.ljust(20)
+          line << " " + rest.formatted_price.rjust(6)
           puts line
       end
       puts "No listings found" if restaurants.empty?

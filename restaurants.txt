@@ -1,7 +1,6 @@
-name	cuisine	1
-name	cuisine 2	2
-name 3	cuisine 3	3
-test 5	test 5	5
-test 7	test 7	7
-foofoo	foooood	10
-high Roller	gold	10500
+High Roller	Gold	10500
+Hot Tamale	mexican	15
+Roy's	Seafood	25
+No Frills Grills	Steakhouse	30
+Pizza Palace	Italian	10
+Tasty House	Asian	15
