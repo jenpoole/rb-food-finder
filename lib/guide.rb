@@ -47,7 +47,7 @@ class Guide
     def do_action(action) # method: do action
         case action
         when 'list'
-            puts "Listing..."
+            list
         when 'find'
             puts "Finding..."
         when 'add'
@@ -59,18 +59,20 @@ class Guide
         end
     end
     
+    def list            # method to list restaurants
+        puts "\nListing restaurants \n\n".upcase
+        restaurants = Restaurant.saved_restaurants
+        
+        restaurants.each do |place|
+            puts place.name + "|" + place.cuisine + "|" + place.price
+        end
+    end
+    
+    
     def add             # method to add restaurants
         puts "Add a restaurant".upcase
-        restaurant = Restaurant.new
         
-        print "Restaurant name: "
-        restaurant.name = gets.chomp.strip
-        
-        print "Cuisine type: "
-        restaurant.cuisine = gets.chomp.strip
-        
-        print "Average Price: "
-        restaurant.price = gets.chomp.strip
+        restaurant = Restaurant.build_using_questions
         
         if restaurant.save
             puts "Restaurant Added"
